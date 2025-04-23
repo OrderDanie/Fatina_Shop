@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatina Shop - Women's Fashion & Jewelry</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #d4af37; /* Gold color */
+            --secondary: #8b4513; /* Brown */
+            --light: #f8f1e5;
+            --dark: #333;
+            --text: #555;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text);
+            background-color: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        /* Language Switcher */
+        .language-switcher {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 5px;
+        }
+
+        .language-switcher button {
+            background: none;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .language-switcher button.active {
+            background: var(--primary);
+            color: white;
+            border-radius: 15px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-right: 15px;
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            letter-spacing: 1px;
+        }
+
+        /* Cart Icon */
+        .cart-icon {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-count {
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+        }
+
+        nav a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 5px;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--primary);
+        }
+
+        nav a.active:after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 70vh;
+            background: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Categories */
+        .categories {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .category-img {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .category-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .category-card:hover .category-img img {
+            transform: scale(1.1);
+        }
+
+        .category-info {
+            padding: 20px;
+        }
+
+        .category-info h3 {
+            margin: 0 0 10px;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        /* Featured Products */
+        .featured-products {
+            padding: 80px 20px;
+            background: white;
+            text-align: center;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .product-img {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+
+        .product-price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .product-price .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1rem;
+            margin-left: 5px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 20px;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80') center/cover no-repeat;
+            position: relative;
+            color: white;
+        }
+
+        .testimonials:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+        }
+
+        .testimonial-container {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .testimonial-slide {
+            padding: 30px;
+            display: none;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .testimonial-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background: var(--primary);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 80px 20px;
+            background: var(--dark);
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 15px 25px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 50px 20px 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            background: rgba(255,255,255,0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav {
+                flex-wrap: wrap;
+            }
+            
+            nav a {
+                margin: 0 10px 10px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 30px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-form button {
+                border-radius: 30px;
+            }
+
+            .cart-icon {
+                right: 15px;
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Added for smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Added for cart functionality */
+        .cart-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.5s forwards;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .cart-modal.open {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .cart-item-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            margin: 0 0 5px;
+            font-size: 1rem;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .cart-total {
+            padding: 20px;
+            border-top: 1px solid #eee;
+            text-align: right;
+        }
+
+        .cart-total h4 {
+            margin: 0 0 10px;
+            font-size: 1.2rem;
+        }
+
+        .cart-total-amount {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .cart-actions {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .checkout-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: var(--secondary);
+        }
+
+        .continue-shopping {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="language-switcher">
+        <button class="active" onclick="changeLanguage('en')">EN</button><br>
+        <button onclick="changeLanguage('fr')">FR</button><br>
+        <button onclick="changeLanguage('ar')">AR</button>
+    </div>
+
+    <!-- Cart Notification -->
+    <div class="cart-notification" id="cartNotification"></div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3 data-lang="your-cart">Your Cart</h3>
+            <button class="close-cart" onclick="closeCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added here dynamically -->
+        </div>
+        <div class="cart-total">
+            <h4 data-lang="total">Total:</h4>
+            <div class="cart-total-amount" id="cartTotal">$0</div>
+        </div>
+        <div class="cart-actions">
+            <button class="checkout-btn" onclick="checkout()" data-lang="checkout">Checkout via WhatsApp</button>
+            <button class="continue-shopping" onclick="closeCart()" data-lang="continue-shopping">Continue Shopping</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <circle cx="21" cy="21" r="3"></circle>
+                        <path d="M11 15a4 4 0 0 0 4 4"></path>
+                        <path d="M18 12a6 6 0 0 0-6-6"></path>
+                    </svg>
+                </div>
+                <div class="logo-text">Fatina Shop</div>
+            </a>
+            <div class="cart-icon" onclick="openCart()">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+        <nav>
+            <a href="#home" class="active" data-lang="home">Home</a>
+            <a href="#clothing" data-lang="clothing">Clothing</a>
+            <a href="#jewelry" data-lang="jewelry">Jewelry</a>
+            <a href="#accessories" data-lang="accessories">Accessories</a>
+            <a href="#about" data-lang="about">About</a>
+            <a href="#contact" data-lang="contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 data-lang="hero-title">Elegance Redefined</h1>
+            <p data-lang="hero-text">Discover our exquisite collection of women's fashion and jewelry that celebrates your unique beauty.</p>
+            <a href="#featured" class="btn" data-lang="shop-now">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories" id="clothing">
+        <h2 class="section-title" data-lang="categories">Our Collections</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Dresses">
+                </div>
+                <div class="category-info">
+                    <h3 data-lang="dresses">Evening Dresses</h3>
+                    <a href="#featured" class="btn" data-lang="view-collection">View Collection</a>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Jewelry">
+                </div>
+                <div class="category-info">
+                    <h3 data-lang="jewelry">Gold Jewelry</h3>
+                    <a href="#jewelry" class="btn" data-lang="view-collection">View Collection</a>
+                </div>
+            </div>
+            <div class="category-card">
+                <div class="category-img">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=736&q=80" alt="Accessories">
+                </div>
+                <div class="category-info">
+                    <h3 data-lang="accessories">Luxury Accessories</h3>
+                    <a href="#accessories" class="btn" data-lang="view-collection">View Collection</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products" id="featured">
+        <h2 class="section-title" data-lang="featured">Featured Products</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Gold Necklace">
+                    <span class="product-badge" data-lang="new">New</span>
+                </div>
+                <div class="product-info">
+                    <h3 data-lang="product1-name">Golden Pearl Necklace</h3>
+                    <div class="product-price">
+                        $199 <span class="old-price">$249</span>
+                    </div>
+                    <button class="btn add-to-cart" data-product="Golden Pearl Necklace" data-price="199" data-image="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" data-lang="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Silk Dress">
+                </div>
+                <div class="product-info">
+                    <h3 data-lang="product2-name">Silk Evening Dress</h3>
+                    <div class="product-price">
+                        $159
+                    </div>
+                    <button class="btn add-to-cart" data-product="Silk Evening Dress" data-price="159" data-image="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" data-lang="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" alt="Diamond Earrings">
+                    <span class="product-badge" data-lang="sale">Sale</span>
+                </div>
+                <div class="product-info">
+                    <h3 data-lang="product3-name">Diamond Stud Earrings</h3>
+                    <div class="product-price">
+                        $299 <span class="old-price">$349</span>
+                    </div>
+                    <button class="btn add-to-cart" data-product="Diamond Stud Earrings" data-price="299" data-image="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" data-lang="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Designer Handbag">
+                </div>
+                <div class="product-info">
+                    <h3 data-lang="product4-name">Designer Leather Handbag</h3>
+                    <div class="product-price">
+                        $229
+                    </div>
+                    <button class="btn add-to-cart" data-product="Designer Leather Handbag" data-price="229" data-image="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" data-lang="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jewelry Section -->
+    <section class="featured-products" id="jewelry">
+        <h2 class="section-title" data-lang="jewelry">Jewelry Collection</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Gold Necklace">
+                    <span class="product-badge" data-lang="new">New</span>
+                </div>
+                <div class="product-info">
+                    <h3 data-lang="product1-name">Golden Pearl Necklace</h3>
+                    <div class="product-price">
+                        $199 <span class="old-price">$249</span>
+                    </div>
+                    <button class="btn add-to-cart" data-product="Golden Pearl Necklace" data-price="199" data-image="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" data-lang="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" alt="Diamond Earrings">
+                    <span class="product-badge" data-lang="sale">Sale</span>
+                </div>
+                <div class="product-info">
+                    <h3 data-lang="product3-name">Diamond Stud Earrings</h3>
+                    <div class="product-price">
+                        $299 <span class="old-price">$349</span>
+                    </div>
+                    <button class="btn add-to-cart" data-product="Diamond Stud Earrings" data-price="299" data-image="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80" data-lang="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Gold Bracelet">
+                    <span class="product-badge" data-lang="new">New</span>
+                </div>
+                <div class="product-info">
+                    <h3>Gold Plated Bracelet</h3>
+                    <div class="product-price">
+                        $179
+                    </div>
+                    <button class="btn add-to-cart" data-product="Gold Plated Bracelet" data-price="179" data-image="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" data-lang="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Silver Ring">
+                </div>
+                <div class="product-info">
+                    <h3>Silver Gemstone Ring</h3>
+                    <div class="product-price">
+                        $129
+                    </div>
+                    <button class="btn add-to-cart" data-product="Silver Gemstone Ring" data-price="129" data-image="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" data-lang="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Accessories Section -->
+    <section class="featured-products" id="accessories">
+        <h2 class="section-title" data-lang="accessories">Accessories Collection</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Designer Handbag">
+                </div>
+                <div class="product-info">
+                    <h3 data-lang="product4-name">Designer Leather Handbag</h3>
+                    <div class="product-price">
+                        $229
+                    </div>
+                    <button class="btn add-to-cart" data-product="Designer Leather Handbag" data-price="229" data-image="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" data-lang="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Silk Scarf">
+                    <span class="product-badge" data-lang="new">New</span>
+                </div>
+                <div class="product-info">
+                    <h3>Luxury Silk Scarf</h3>
+                    <div class="product-price">
+                        $89
+                    </div>
+                    <button class="btn add-to-cart" data-product="Luxury Silk Scarf" data-price="89" data-image="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" data-lang="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1386&q=80" alt="Evening Clutch">
+                </div>
+                <div class="product-info">
+                    <h3>Evening Clutch Purse</h3>
+                    <div class="product-price">
+                        $149
+                    </div>
+                    <button class="btn add-to-cart" data-product="Evening Clutch Purse" data-price="149" data-image="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1386&q=80" data-lang="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1506&q=80" alt="Designer Sunglasses">
+                    <span class="product-badge" data-lang="sale">Sale</span>
+                </div>
+                <div class="product-info">
+                    <h3>Designer Sunglasses</h3>
+                    <div class="product-price">
+                        $129 <span class="old-price">$159</span>
+                    </div>
+                    <button class="btn add-to-cart" data-product="Designer Sunglasses" data-price="129" data-image="https://images.unsplash.com/photo-1607346256330-dee7af15f7c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1506&q=80" data-lang="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="about">
+        <div class="testimonial-container">
+            <h2 class="section-title" data-lang="testimonials">What Our Customers Say</h2>
+            <div class="testimonial-slide active">
+                <p class="testimonial-text" data-lang="testimonial1">"The jewelry from Fatina Shop is absolutely stunning! I've received so many compliments on my necklace."</p>
+                <p class="testimonial-author">- Sarah Johnson</p>
+            </div>
+            <div class="testimonial-slide">
+                <p class="testimonial-text" data-lang="testimonial2">"I love the quality of their dresses. Perfect fit and so elegant for special occasions."</p>
+                <p class="testimonial-author">- Amina Al-Mansour</p>
+            </div>
+            <div class="testimonial-slide">
+                <p class="testimonial-text" data-lang="testimonial3">"Excellent customer service and fast shipping. Will definitely shop here again!"</p>
+                <p class="testimonial-author">- Marie Dubois</p>
+            </div>
+            <div class="testimonial-dots">
+                <span class="dot active" onclick="currentSlide(1)"></span>
+                <span class="dot" onclick="currentSlide(2)"></span>
+                <span class="dot" onclick="currentSlide(3)"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <h2 class="section-title" data-lang="newsletter">Join Our Newsletter</h2>
+        <p data-lang="newsletter-text">Subscribe to get updates on new collections and exclusive offers.</p>
+        <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Your email address" required data-lang="email-placeholder">
+            <button type="submit" data-lang="subscribe">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 data-lang="about-us">About Fatina Shop</h3>
+                <p data-lang="about-text">We bring you the finest women's fashion and jewelry, combining traditional craftsmanship with contemporary design.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3 data-lang="quick-links">Quick Links</h3>
+                <ul>
+                    <li><a href="#home" data-lang="home">Home</a></li>
+                    <li><a href="#about" data-lang="about">About Us</a></li>
+                    <li><a href="#featured" data-lang="collections">Collections</a></li>
+                    <li><a href="#" data-lang="blog">Blog</a></li>
+                    <li><a href="#contact" data-lang="contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3 data-lang="customer-service">Customer Service</h3>
+                <ul>
+                    <li><a href="#" data-lang="faq">FAQ</a></li>
+                    <li><a href="#" data-lang="shipping">Shipping & Returns</a></li>
+                    <li><a href="#" data-lang="size-guide">Size Guide</a></li>
+                    <li><a href="#" data-lang="track-order">Track Your Order</a></li>
+                    <li><a href="#" data-lang="privacy">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3 data-lang="contact-info">Contact Info</h3>
+                <p data-lang="address">123 Fashion Street<br>Paris, France</p>
+                <p data-lang="email">Email: info@fatinashop.com</p>
+                <p data-lang="phone">Phone: +123 456 7890</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span data-lang="copyright">2023 Fatina Shop. All rights reserved.</span></p>
+        </div>
+    </footer>
+
+    <script>
+        // Shopping cart functionality
+        let cart = [];
+        const cartModal = document.getElementById('cartModal');
+        const overlay = document.getElementById('overlay');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const cartCount = document.getElementById('cartCount');
+        const cartNotification = document.getElementById('cartNotification');
+        const whatsappNumber = "+212610-942052"; // Your WhatsApp number
+
+        // Language translations
+        const translations = {
+            en: {
+                "home": "Home",
+                "clothing": "Clothing",
+                "jewelry": "Jewelry",
+                "accessories": "Accessories",
+                "about": "About",
+                "contact": "Contact",
+                "hero-title": "Elegance Redefined",
+                "hero-text": "Discover our exquisite collection of women's fashion and jewelry that celebrates your unique beauty.",
+                "shop-now": "Shop Now",
+                "categories": "Our Collections",
+                "dresses": "Evening Dresses",
+                "view-collection": "View Collection",
+                "featured": "Featured Products",
+                "new": "New",
+                "sale": "Sale",
+                "product1-name": "Golden Pearl Necklace",
+                "product2-name": "Silk Evening Dress",
+                "product3-name": "Diamond Stud Earrings",
+                "product4-name": "Designer Leather Handbag",
+                "add-to-cart": "Add to Cart",
+                "testimonials": "What Our Customers Say",
+                "testimonial1": "\"The jewelry from Fatina Shop is absolutely stunning! I've received so many compliments on my necklace.\"",
+                "testimonial2": "\"I love the quality of their dresses. Perfect fit and so elegant for special occasions.\"",
+                "testimonial3": "\"Excellent customer service and fast shipping. Will definitely shop here again!\"",
+                "newsletter": "Join Our Newsletter",
+                "newsletter-text": "Subscribe to get updates on new collections and exclusive offers.",
+                "email-placeholder": "Your email address",
+                "subscribe": "Subscribe",
+                "about-us": "About Fatina Shop",
+                "about-text": "We bring you the finest women's fashion and jewelry, combining traditional craftsmanship with contemporary design.",
+                "quick-links": "Quick Links",
+                "collections": "Collections",
+                "blog": "Blog",
+                "customer-service": "Customer Service",
+                "faq": "FAQ",
+                "shipping": "Shipping & Returns",
+                "size-guide": "Size Guide",
+                "track-order": "Track Your Order",
+                "privacy": "Privacy Policy",
+                "contact-info": "Contact Info",
+                "address": "123 Fashion Street<br>Paris, France",
+                "email": "Email: info@fatinashop.com",
+                "phone": "Phone: +123 456 7890",
+                "copyright": "2023 Fatina Shop. All rights reserved.",
+                "your-cart": "Your Cart",
+                "total": "Total:",
+                "checkout": "Checkout via WhatsApp",
+                "continue-shopping": "Continue Shopping",
+                "item-added": "added to cart",
+                "item-removed": "removed from cart",
+                "empty-cart": "Your cart is empty"
+            },
+            fr: {
+                "home": "Accueil",
+                "clothing": "Vêtements",
+                "jewelry": "Bijoux",
+                "accessories": "Accessoires",
+                "about": "À propos",
+                "contact": "Contact",
+                "hero-title": "Élégance Redéfinie",
+                "hero-text": "Découvrez notre exquise collection de mode féminine et de bijoux qui célèbre votre beauté unique.",
+                "shop-now": "Acheter Maintenant",
+                "categories": "Nos Collections",
+                "dresses": "Robes de Soirée",
+                "view-collection": "Voir la Collection",
+                "featured": "Produits Vedettes",
+                "new": "Nouveau",
+                "sale": "Solde",
+                "product1-name": "Collier de Perles Dorées",
+                "product2-name": "Robe de Soirée en Soie",
+                "product3-name": "Boucles d'Oreilles Diamant",
+                "product4-name": "Sac à Main en Cuir Designer",
+                "add-to-cart": "Ajouter au Panier",
+                "testimonials": "Témoignages de Nos Clients",
+                "testimonial1": "\"Les bijoux de Fatina Shop sont absolument magnifiques ! J'ai reçu tellement de compliments sur mon collier.\"",
+                "testimonial2": "\"J'adore la qualité de leurs robes. Parfaitement ajustées et si élégantes pour les occasions spéciales.\"",
+                "testimonial3": "\"Service client excellent et livraison rapide. Je reviendrai certainement faire mes achats ici !\"",
+                "newsletter": "Abonnez-vous à Notre Newsletter",
+                "newsletter-text": "Abonnez-vous pour recevoir des mises à jour sur les nouvelles collections et des offres exclusives.",
+                "email-placeholder": "Votre adresse email",
+                "subscribe": "S'abonner",
+                "about-us": "À propos de Fatina Shop",
+                "about-text": "Nous vous apportons les plus beaux vêtements et bijoux pour femmes, alliant savoir-faire traditionnel et design contemporain.",
+                "quick-links": "Liens Rapides",
+                "collections": "Collections",
+                "blog": "Blog",
+                "customer-service": "Service Client",
+                "faq": "FAQ",
+                "shipping": "Livraison & Retours",
+                "size-guide": "Guide des Tailles",
+                "track-order": "Suivre Votre Commande",
+                "privacy": "Politique de Confidentialité",
+                "contact-info": "Coordonnées",
+                "address": "123 Rue de la Mode<br>Paris, France",
+                "email": "Email : info@fatinashop.com",
+                "phone": "Téléphone : +123 456 7890",
+                "copyright": "2023 Fatina Shop. Tous droits réservés.",
+                "your-cart": "Votre Panier",
+                "total": "Total :",
+                "checkout": "Payer via WhatsApp",
+                "continue-shopping": "Continuer vos achats",
+                "item-added": "ajouté au panier",
+                "item-removed": "retiré du panier",
+                "empty-cart": "Votre panier est vide"
+            },
+            ar: {
+                "home": "الرئيسية",
+                "clothing": "ملابس",
+                "jewelry": "مجوهرات",
+                "accessories": "اكسسوارات",
+                "about": "من نحن",
+                "contact": "اتصل بنا",
+                "hero-title": "أناقة معاد تعريفها",
+                "hero-text": "اكتشف مجموعتنا الرائعة من أزياء النساء والمجوهرات التي تحتفل بجمالك الفريد.",
+                "shop-now": "تسوق الآن",
+                "categories": "مجموعاتنا",
+                "dresses": "فساتين السهرة",
+                "view-collection": "عرض المجموعة",
+                "featured": "منتجات مميزة",
+                "new": "جديد",
+                "sale": "تخفيض",
+                "product1-name": "قلادة لؤلؤ ذهبية",
+                "product2-name": "فستان سهرة حريري",
+                "product3-name": "أقراط ماسية",
+                "product4-name": "حقيبة يد جلدية مصممة",
+                "add-to-cart": "أضف إلى السلة",
+                "testimonials": "ما يقوله عملاؤنا",
+                "testimonial1": "\"المجوهرات من متجر فاتينا رائعة حقًا! تلقيت الكثير من الإطراءات على قلادتي.\"",
+                "testimonial2": "\"أحب جودة فساتينهم. تناسب مثالي وأنيق جدًا للمناسبات الخاصة.\"",
+                "testimonial3": "\"خدمة عملاء ممتازة وشحن سريع. بالتأكيد سأتسوق هنا مرة أخرى!\"",
+                "newsletter": "انضم إلى نشرتنا الإخبارية",
+                "newsletter-text": "اشترك للحصول على تحديثات حول المجموعات الجديدة والعروض الحصرية.",
+                "email-placeholder": "عنوان بريدك الإلكتروني",
+                "subscribe": "اشتراك",
+                "about-us": "عن متجر فاتينا",
+                "about-text": "نقدم لكم أجمل أزياء النساء والمجوهرات، الجمع بين الحرفية التقليدية والتصميم المعاصر.",
+                "quick-links": "روابط سريعة",
+                "collections": "المجموعات",
+                "blog": "المدونة",
+                "customer-service": "خدمة العملاء",
+                "faq": "الأسئلة الشائعة",
+                "shipping": "الشحن والإرجاع",
+                "size-guide": "دليل المقاسات",
+                "track-order": "تتبع طلبك",
+                "privacy": "سياسة الخصوصية",
+                "contact-info": "معلومات الاتصال",
+                "address": "123 شارع الموضة<br>باريس، فرنسا",
+                "email": "البريد الإلكتروني: info@fatinashop.com",
+                "phone": "الهاتف: +123 456 7890",
+                "copyright": "2023 متجر فاتينا. جميع الحقوق محفوظة.",
+                "your-cart": "سلة التسوق",
+                "total": "المجموع:",
+                "checkout": "الدفع عبر واتساب",
+                "continue-shopping": "مواصلة التسوق",
+                "item-added": "تمت الإضافة إلى السلة",
+                "item-removed": "تمت الإزالة من السلة",
+                "empty-cart": "سلة التسوق فارغة"
+            }
+        };
+
+        // Language switcher function
+        function changeLanguage(lang) {
+            // Update active button
+            document.querySelectorAll('.language-switcher button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === lang.toUpperCase() || 
+                    (lang === 'en' && btn.textContent === 'EN') ||
+                    (lang === 'fr' && btn.textContent === 'FR') ||
+                    (lang === 'ar' && btn.textContent === 'AR')) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Update RTL for Arabic
+            if (lang === 'ar') {
+                document.body.style.direction = 'rtl';
+            } else {
+                document.body.style.direction = 'ltr';
+            }
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang] && translations[lang][key]) {
+                    if (element.tagName === 'INPUT') {
+                        element.placeholder = translations[lang][key];
+                    } else {
+                        element.innerHTML = translations[lang][key];
+                    }
+                }
+            });
+        }
+
+        // Testimonial slider
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("testimonial-slide");
+            let dots = document.getElementsByClassName("dot");
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+            slides[slideIndex-1].classList.add("active");
+            dots[slideIndex-1].classList.add("active");
+        }
+
+        // Auto-rotate testimonials
+        setInterval(function() {
+            plusSlides(1);
+        }, 5000);
+
+        // Navigation active state
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Prevent default if it's a hash link
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    document.querySelectorAll('nav a').forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Smooth scroll to section
+                    const targetId = this.getAttribute('href');
+                    if (targetId !== '#') {
+                        document.querySelector(targetId).scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Add to cart functionality
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                const product = this.getAttribute('data-product');
+                const price = parseFloat(this.getAttribute('data-price'));
+                const image = this.getAttribute('data-image');
+                
+                // Add item to cart
+                cart.push({ product, price, image });
+                updateCart();
+                
+                // Show notification
+                showNotification(`${product} ${translations[currentLang]['item-added']} ($${price})`);
+            });
+        });
+
+        // Update cart UI
+        function updateCart() {
+            // Update cart count
+            cartCount.textContent = cart.length;
+            
+            // Update cart items
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `<p>${translations[currentLang]['empty-cart']}</p>`;
+                cartTotal.textContent = '$0';
+                return;
+            }
+            
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.product}" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <h4 class="cart-item-title">${item.product}</h4>
+                        <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                        <button class="cart-item-remove" onclick="removeFromCart(${index})">
+                            ${translations[currentLang]['item-removed']}
+                        </button>
+                    </div>
+                `;
+                cartItemsContainer.appendChild(cartItem);
+            });
+            
+            // Update total
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Remove item from cart
+        function removeFromCart(index) {
+            const removedItem = cart.splice(index, 1)[0];
+            updateCart();
+            showNotification(`${removedItem.product} ${translations[currentLang]['item-removed']}`);
+        }
+
+        // Show notification
+        function showNotification(message) {
+            cartNotification.textContent = message;
+            cartNotification.style.display = 'block';
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                cartNotification.style.animation = 'slideOut 0.5s forwards';
+                setTimeout(() => {
+                    cartNotification.style.display = 'none';
+                    cartNotification.style.animation = 'slideIn 0.5s forwards';
+                }, 500);
+            }, 3000);
+        }
+
+        // Open cart modal
+        function openCart() {
+            cartModal.classList.add('open');
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close cart modal
+        function closeCart() {
+            cartModal.classList.remove('open');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Checkout via WhatsApp
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification(translations[currentLang]['empty-cart']);
+                return;
+            }
+            
+            let message = `Hello Fatina Shop! I would like to purchase the following items:\n\n`;
+            
+            let total = 0;
+            cart.forEach(item => {
+                message += `- ${item.product}: $${item.price.toFixed(2)}\n`;
+                total += item.price;
+            });
+            
+            message += `\nTotal: $${total.toFixed(2)}\n\n`;
+            message += `Please let me know how to proceed with payment and delivery. Thank you!`;
+            
+            // Encode message for URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Open WhatsApp with the message
+            window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
+            
+            // Clear cart after checkout
+            cart = [];
+            updateCart();
+            closeCart();
+            
+            showNotification('Order sent via WhatsApp! We will contact you soon.');
+        }
+
+        // Newsletter form submission
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input').value;
+            showNotification(`Thank you for subscribing with ${email}!`);
+            this.reset();
+        });
+
+        // Highlight active navigation based on scroll position
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 100)) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize with English
+        let currentLang = 'en';
+        changeLanguage(currentLang);
+    </script>
+</body>
+</html>
